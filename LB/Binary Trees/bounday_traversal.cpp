@@ -25,7 +25,6 @@ class Solution {
             if(mp.count(root) == 0){
                 mp[root] = true;
                 ans.push_back(root->data);
-                
             }
         }
         getLeaves(root->right);
