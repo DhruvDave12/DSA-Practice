@@ -59,6 +59,7 @@ class Solution{
         return NULL;
     }
     
+    // does pass GFG Test Cases but may fail in real life for that make a map for <Node*, int>
     map<int, int> mp;
     void getLevel(Node* root, int key, int level){
         if(!root) return;
