@@ -83,7 +83,7 @@ class Solution2 {
   public:
     int checkMirrorTree(int n, int e, int A[], int B[]) {
         map<int, stack<int>> mp;
-
+// if you wanna check if the trees are same or not with this method make a  hash map of 
         for(int i=0; i<2*e; i+=2){
             mp[A[i]].push(A[i+1]);
         }

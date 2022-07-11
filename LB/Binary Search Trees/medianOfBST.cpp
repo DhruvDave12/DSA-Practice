@@ -71,19 +71,6 @@ int getCountOfNodes(Node* root, int &count){
     return count;
 }
 
-float findMedian2(struct Node *root)
-{
-    int c = 0, sum = 0, target, total=0;
-    bool v = false;
-    Node* temp = root;
-    
-    total = getCountOfNodes(temp, total);
-    if(total % 2 == 0){
-        target = 
-    }
-    return findMedian2Helper(root)
-}
-
 int main()
 {
     ios_base::sync_with_stdio(false);
