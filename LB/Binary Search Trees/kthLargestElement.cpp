@@ -29,7 +29,8 @@ class Solution
     {
         vector<int> inorder;
         fillVector(root, inorder);
-        return inorder[K-1];    
+        int lastKthElement = inorder.size()-K;
+        return inorder[lastKthElement];    
     }
 };
 

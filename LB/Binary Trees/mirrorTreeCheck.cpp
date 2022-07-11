@@ -36,6 +36,7 @@ class Solution {
                 temp = root;
                 continue;
             }
+            // this is to get temp to the correct position
             else if(i%2==0){
                 if(temp->left && A[i] == (temp->left)->data){
                     temp = temp->left;

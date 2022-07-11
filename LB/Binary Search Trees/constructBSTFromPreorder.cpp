@@ -60,7 +60,6 @@ Node* constructBSTUtil2(vector<int> &pre, int *preIdx, int key, int min, int max
 }
 
 
-
 void inorder(Node* root){
     if(!root) return;
     inorder(root->left);
