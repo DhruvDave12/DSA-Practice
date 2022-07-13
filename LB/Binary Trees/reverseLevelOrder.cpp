@@ -58,6 +58,24 @@ vector<int> reverseLevelOrder(Node *root)
     
     return ans;
 }
+
+vector<int> reverse2(Node* root){
+    vector<int> vec;
+    if(!root) return vec;
+
+    queue<Node*> q;
+    q.push(root);
+
+    while(!q.empty()){
+        Node* temp = q.front();
+        q.pop();
+        vec.push_back(temp->data);
+        if(temp->right) q.push(temp->right);
+        if(temp->left) q.push(temp->left);
+    }
+
+    return vec;
+}
 int main()
 {
     ios_base::sync_with_stdio(false);
@@ -70,6 +88,13 @@ int main()
     root->left->right = new Node(5);
     root->right->left = new Node(6);
 
+    Node* temp = root;
     reverseLevelOrder(root);
+    cout<<"\nOTHER TECH: "<<"\n";
+    vector<int> v = reverse2(temp);
+
+    for(int i=0; i<v.size(); i++){
+        cout<<v[i]<<" ";
+    }
     return 0;
 }
