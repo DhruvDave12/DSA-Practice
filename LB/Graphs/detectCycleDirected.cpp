@@ -18,6 +18,7 @@ class Solution {
         recVis[v] = false;
         return false;
     }
+    
     bool isCyclic(int V, vector<int> adj[]) {
         vector<bool> vis(V, false);
         vector<bool> recVis(V, false);
