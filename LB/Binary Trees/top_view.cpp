@@ -26,7 +26,7 @@ class Solution
             // we dont have any node at this particular depth
             m[verticalLen] = make_pair(root->data, level);
         }
-        else if(m[verticalLen].second > level){
+        else if(m[verticalLen].second <= level){
             // else if a node for this depth exists and is at more lower level we replace it
             m[verticalLen] = make_pair(root->data, level);
         }

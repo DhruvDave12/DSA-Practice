@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// In directed graphs the shortest distance in the graph will come from topological way
+// get topological order and then traverse with the logic.
 class Graph {
     public:
     map<int, vector<pair<int,int>>> adj;
