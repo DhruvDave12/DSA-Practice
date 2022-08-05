@@ -43,6 +43,7 @@ class Sol {
                     }
                 }
 
+                // if color === parent's color
                 else if(color[*itr] == color[temp]){
                     return false;
                 }

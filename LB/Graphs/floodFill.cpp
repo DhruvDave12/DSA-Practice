@@ -4,8 +4,11 @@ using namespace std;
 class Solution {
 public:
     void fillVector(vector<vector<int>>&image, int sr, int sc, int color, vector<vector<bool>>&visited, int currColor){
+        // if going out of boundaries then return 
         if(sr >= image.size() || sr < 0) return;
         if(sc >= image[sr].size() || sc < 0) return;
+
+        // If the image color found return
         if(image[sr][sc] == color) return;
 
         // int oldColor = image[sr][sc];

@@ -20,6 +20,7 @@ class Solution {
                     q.push({it,curr});
                 }
 
+                // if it is visited and not by parent then this comes
                 if(it != par) return true;
             }
         }

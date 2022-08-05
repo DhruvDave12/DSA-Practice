@@ -34,8 +34,7 @@ class Prims {
         parent[sv] = -1;
 
         for(int c = 0; c < N-1; c++){
-            // find the minimum in they key vector
-
+            // find the minimum in the key vector
             int mini = INT_MAX, u;
             for(int i=0; i<key.size(); i++){
                 if(!vis[i] && key[i] < mini){
