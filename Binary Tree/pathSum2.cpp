@@ -14,48 +14,86 @@ class TreeNode {
     }
 };
 
-class myDS {
-    public:
-    int key;
-    vector<int> vec;
-};
+// class myDS {
+//     public:
+//     int key;
+//     vector<int> vec;
+// };
+
+// class Solution {
+// public:
+
+//     void fillMyDs(TreeNode* root, vector<myDS> &vec, int sum, myDS curr, vector<int> &vecc){
+//         if(!root) return;
+//         if((!root->left) && (!root->right)){
+//             sum += root->val;
+//             vecc.push_back(root->val);
+//             curr.key = sum;
+//             curr.vec = vecc;
+//             vec.push_back(curr);
+//             curr.key = -1;
+//             curr.vec.clear();
+//             return;
+//         }
+//         vecc.push_back(root->val);
+    
+//         fillMyDs(root->left, vec, sum+root->val, curr, vecc);
+//         vecc.pop_back();
+//         fillMyDs(root->right, vec, sum+root->val, curr, vecc);
+//         vecc.pop_back();
+//     }
+
+//     vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
+//         vector<vector<int>> res;
+
+//         vector<myDS> vec1;
+//         vector<int> vec2;
+//         int sum = 0;
+//         myDS curr;
+//         fillMyDs(root, vec1,sum,curr,vec2);
+
+//         for(int i=0; i<vec1.size(); i++){
+//             if(vec1[i].key == targetSum){
+//                 res.push_back(vec1[i].vec);
+//             }
+//         }
+
+//         return res;
+//     }
+// };
 
 class Solution {
 public:
-
-    void fillMyDs(TreeNode* root, vector<myDS> &vec, int sum, myDS curr, vector<int> &vecc){
+    
+    void fillVectorOfVector(TreeNode* root, int targetSum, vector<vector<int>> &vec, vector<int> &temp, int sum){
         if(!root) return;
         if((!root->left) && (!root->right)){
             sum += root->val;
-            vecc.push_back(root->val);
-            curr.key = sum;
-            curr.vec = vecc;
-            vec.push_back(curr);
-            curr.key = -1;
-            curr.vec.clear();
+            temp.push_back(root->val);
+            if(sum == targetSum){
+                vec.push_back(temp);
+            } 
+
             return;
         }
-        vecc.push_back(root->val);
-        fillMyDs(root->left, vec, sum+root->val, curr, vecc);
-        vecc.pop_back();
-        fillMyDs(root->right, vec, sum+root->val, curr, vecc);
-        vecc.pop_back();
+
+        temp.push_back(root->val);
+        if(root->left){
+            fillVectorOfVector(root->left, targetSum, vec, temp, sum+root->val);
+            temp.pop_back();
+        }
+
+        if(root->right){
+            fillVectorOfVector(root->right, targetSum, vec, temp, sum+root->val);
+            temp.pop_back();
+        }
     }
 
     vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
+        vector<int> temp;
         vector<vector<int>> res;
-
-        vector<myDS> vec1;
-        vector<int> vec2;
         int sum = 0;
-        myDS curr;
-        fillMyDs(root, vec1,sum,curr,vec2);
-
-        for(int i=0; i<vec1.size(); i++){
-            if(vec1[i].key == targetSum){
-                res.push_back(vec1[i].vec);
-            }
-        }
+        fillVectorOfVector(root, targetSum, res, temp, sum);
 
         return res;
     }
