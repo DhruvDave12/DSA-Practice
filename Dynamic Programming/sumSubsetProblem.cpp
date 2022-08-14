@@ -8,12 +8,10 @@ public:
         if(n < 0) return false;
         if(targetSum == sumTill) return true;
         
-        bool includingExists = helper(arr, sumTill+arr[n], n-1, targetSum);
-        bool doesntIncludeExists = helper(arr, sumTill, n-1, targetSum);
-
-        if(includingExists || doesntIncludeExists) return true;
-
-        return false;
+        if(sumTill > targetSum){
+            return helper(arr, sumTill, n-1, targetSum);
+        }
+        return helper(arr, sumTill+arr[n], n-1, targetSum) || helper(arr, sumTill, n-1, targetSum);
     }
 
     bool isSubsetSum(vector<int> arr, int sum){

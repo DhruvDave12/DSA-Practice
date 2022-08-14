@@ -1,39 +1,61 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class Solution {
-public:
-
-    void helper(vector<int>&arr, int totalSum, int sum, int &res, int i){
-        if(i >= arr.size()) return;
-
-        res = min(res, abs((totalSum-sum)-sum));
+// class Solution {
+// public:
+//     int minimumDifference(vector<int>& nums) {
         
-        helper(arr, totalSum, sum+arr[i], res, i+1);
-        helper(arr, totalSum, sum, res, i+1);
+//     }
+// };
+
+class Solution{
+  public:
+    
+    void fillDP(int arr[], int n, vector<vector<bool>> &dp){
+        for(int i=0;i<dp.size(); i++){
+            for(int j=0; j<dp[i].size(); j++){
+                if(i == 0) dp[i][j] = false;
+                if(j == 0) dp[i][j] = true;
+            }
+        }
+
+        for(int i=1; i<dp.size(); i++){
+            for(int j=1; j<dp[i].size(); j++){
+                if(arr[i-1] <= j){
+                    dp[i][j] = dp[i-1][j - arr[i-1]] || dp[i-1][j];
+                } else {
+                    dp[i][j] = dp[i-1][j];
+                }
+            }
+        }
     }
-    int minimumDifference(vector<int>& nums) {
+
+	int minDifference(int arr[], int n)  { 
         int totalSum = 0;
-        for(int i=0; i<nums.size(); i++) totalSum+=nums[i];
+        for(int i=0; i<n; i++) totalSum += arr[i];
+
+        vector<vector<bool>> dp(n+1, vector<bool>(totalSum+1,false));
+
+        fillDP(arr, n, dp);
         int res = INT_MAX;
-        int i = 0;
-        int sum = 0;
-
-        helper(nums, totalSum, sum, res, i);
-
+        for(int i=0; i<dp[n].size(); i++){
+            if(dp[n][i] && i <= totalSum/2){
+                res = min(res, (totalSum-(2*i)));
+            }
+        }
         return res;
-    }
+    } 
 };
-
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     
-    vector<int> arr = {76,8,45,20,74,84,28,1};
+    int arr[] = {1,2,7};
+    int n = 3;
 
     Solution s;
-    int ans = s.minimumDifference(arr);
+    int ans = s.minDifference(arr, n);
 
     cout<<"ANS: "<<ans<<"\n"; 
     return 0;
