@@ -1,77 +1,44 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct node
-{
-    int data;
-    node *left;
-    node *right;
+class TreeNode {
+    public:
+    int val;
+    TreeNode* left;
+    TreeNode* right;
 
-    node(int val)
-    {
-        data = val;
-        left = right = NULL;
+    TreeNode(int data){
+        this->right = NULL;
+        this->left = NULL;
+        this->val = data;
     }
 };
+void getLeftMostLeaf(TreeNode* root, bool &isLeft, int &ans){
+    if(!root) return;
 
-bool getPath(node *root, int n1, vector<node*> path)
-{
-    if (root == NULL)
-    {
-        return false;
+    if(isLeft && (!root->left) && (!root->right)){
+        ans += root->val;
     }
-
-    if (root->data == n1)
-    {
-        return true;
-    }
-
-    path.push_back(root);
-    if (getPath(root->left, n1, path) || getPath(root->right, n1, path))
-    {
-        return true;
-    }
-
-    path.pop_back();
-
-    return false;
-}
-
-node* LCA(node *root, int n1, int n2)
-{
-    if (root == NULL)
-    {
-        return root;
-    }
-
-    vector<node*> v1, v2;
-
-    if (!getPath(root, n1, v1) || !getPath(root, n2, v2))
-    {
-        return NULL;
-    }
-
-    int i;
-    for (i = 0; i < v1.size() && v2.size(); i++)
-    {
-        if (v1[i]->data != v2[i]->data)
-        {
-            break;
-        }
-    }
-    return v1[i - 1];
+    getLeftMostLeaf(root->left, isLeft=true, ans);
+    getLeftMostLeaf(root->right, isLeft=false, ans);
 }
 
 int main()
 {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    
+    TreeNode* root = new TreeNode(3);
+    root->left = new TreeNode(9);
+    root->right = new TreeNode(20);
+    root->right->left = new TreeNode(15);
+    root->right->right = new TreeNode(7);
 
-    node *root = new node(1);
-    root->left = new node(2);
-    root->left->left = new node(4);
-    root->right = new node(3);
-    root->right->left = new node(5);
-    root->right->left->left = new node(7);
-    root->right->right = new node(6);
+    int ans = 0;
+    bool isLeft = false;
+    getLeftMostLeaf(root, isLeft, ans);
+
+    cout<<ans<<"\n";
 
     return 0;
 }

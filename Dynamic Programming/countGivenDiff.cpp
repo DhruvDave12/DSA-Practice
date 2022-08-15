@@ -51,8 +51,8 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    vector<int> arr = {1, 2, 3, 1, 2};
-    int diff = 1;
+    vector<int> arr = {1, 1, 1, 1, 1};
+    int diff = 3;
 
     Solution s;
 
