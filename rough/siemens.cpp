@@ -1,44 +1,220 @@
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// class node
+// {
+// public:
+//     int data;
+//     node *next;
+
+//     node(int val)
+//     {
+//         data = val;
+//         next = NULL;
+//     }
+// };
+
+// void insertAtTail(node *&head, int val)
+// {
+//     node *n = new node(val);
+//     if (head == NULL)
+//     {
+//         head = n;
+//         return;
+//     }
+
+//     node *temp = head;
+
+//     while (temp->next != NULL)
+//     {
+//         temp = temp->next;
+//     }
+
+//     temp->next = n;
+// }
+
+// void deleteMAfterN(node *&head, int m, int n)
+// {
+
+//     node *temp = head;
+//     int a, b;
+
+//     while (temp != NULL)
+//     {
+//         a = m - 1;
+//         while (a && temp != NULL)
+//         {
+//             temp = temp->next;
+//             a--;
+//         }
+
+//         b = n;
+
+//         while(b && temp != NULL)
+//         {
+//             node* toDelete = temp-> next;
+//             if(temp-> next != NULL)
+//             temp-> next = temp-> next-> next;
+//             delete toDelete;
+//             b--;
+//         }
+
+//         temp = temp-> next;
+//     }
+// }
+
+// void display(node *&head)
+// {
+//     node *temp = head;
+
+//     while (temp != NULL)
+//     {
+//         cout << temp->data << "->";
+//         temp = temp->next;
+//     }
+
+//     cout << "NULL" << endl;
+// }
+
+// int main()
+// {
+
+//     node *head = NULL;
+//     insertAtTail(head, 10);
+//     insertAtTail(head, 20);
+//     insertAtTail(head, 30);
+//     insertAtTail(head, 40);
+//     insertAtTail(head, 50);
+//     insertAtTail(head, 60);
+//     display(head);
+
+//     // display(newHead);
+//     return 0;
+// }
+
 #include <bits/stdc++.h>
 using namespace std;
 
-class TreeNode {
-    public:
-    int val;
-    TreeNode* left;
-    TreeNode* right;
+vector<int> v;
 
-    TreeNode(int data){
-        this->right = NULL;
-        this->left = NULL;
-        this->val = data;
+int mnx = INT_MAX;
+map<int, int> mp;
+class node
+{
+
+public:
+    int data;
+    node *left;
+    node *right;
+
+    node(int val)
+    {
+        data = val;
+        left = right = NULL;
     }
 };
-void getLeftMostLeaf(TreeNode* root, bool &isLeft, int &ans){
-    if(!root) return;
 
-    if(isLeft && (!root->left) && (!root->right)){
-        ans += root->val;
+bool checker(node *root1, node *root2)
+{
+    if (!root1 && !root2)
+    {
+        return true;
     }
-    getLeftMostLeaf(root->left, isLeft=true, ans);
-    getLeftMostLeaf(root->right, isLeft=false, ans);
+
+    if (!root1 || !root2)
+    {
+        return false;
+    }
+
+    if (root1->data == root2->data && checker(root1->left, root2->left) && checker(root1->right, root2->right))
+    {
+        return true;
+    }
+    else
+        return false;
+
+    // checker(root1-> left, root2-> left);
+    // checker(root1-> right, root2-> right);
+
+    // return false;
 }
+
+void mainq(node *root1, node *root2, bool &ans)
+{
+    if (root1 == NULL)
+    {
+        return;
+    }
+
+    if (root1->data == root2->data)
+    {
+        ans = checker(root1, root2);
+        if (ans)
+            return;
+    }
+
+    mainq(root1->left, root2, ans);
+    mainq(root1->right, root2, ans);
+}
+
+// void tilt(node* root)
+// {
+//     if(root == NULL || (!root-> right && !root-> left))
+//     return;
+
+// }
 
 int main()
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    
-    TreeNode* root = new TreeNode(3);
-    root->left = new TreeNode(9);
-    root->right = new TreeNode(20);
-    root->right->left = new TreeNode(15);
-    root->right->right = new TreeNode(7);
 
-    int ans = 0;
-    bool isLeft = false;
-    getLeftMostLeaf(root, isLeft, ans);
+    // node *root = new node(4);
+    // root->right = new node(9);
+    // root->left = new node(2);
+    // root->right->right = new node(7);
+    // root->right->left = new node(3);
+    // root->left->left = new node(3);
+    // root->left->right = new node(5);
+    // root-> left-> right-> left = new node(13);
 
-    cout<<ans<<"\n";
+    // node* ans = ques(root);
+    // cout<<ans->right-> data<<endl;
+
+    // tilt(root, 0);
+    // for (int i = 0; i < v.size(); i++)
+    // {
+    //     cout<<v[i]<<" ";
+    // }
+
+    // cout<<v.size()<<endl;
+
+    // node* newRoot = myInvert(root);
+    // cout << newRoot->left->data << " ";
+
+    // cout<<sumReplace(root)<<endl;
+
+    node *root1 = new node(3);
+    root1->left = new node(4);
+    root1->right = new node(5);
+    root1->left->left = new node(1);
+    root1->left->right = new node(2);
+
+    node *root2 = new node(4);
+    root2->left = new node(1);
+    root2->right = new node(2);
+
+    //   mainq(root1, root2);
+
+    bool ans = false;
+    mainq(root1, root2, ans);
+
+    if (ans)
+    {
+        cout << "YES"
+             << "\n";
+    }
+    else
+        cout << "NO"
+             << "\n";
 
     return 0;
 }
