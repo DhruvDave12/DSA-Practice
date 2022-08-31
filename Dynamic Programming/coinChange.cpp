@@ -65,7 +65,7 @@ int helperBottomUp(vector<int> &coins, int sum){
     for(int i=0; i<dp.size(); i++){
         for(int j=0; j<dp[i].size(); j++){
             if(i == 0){
-                dp[i][j] = 0;
+                dp[i][j] = 0; 
             }
             if(j == 0){
                 dp[i][j] = 1;
