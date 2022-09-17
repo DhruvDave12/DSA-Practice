@@ -39,7 +39,7 @@ public:
         while(!q.empty()){
             int temp = q.front();
             vec.push_back(temp);
-
+            q.pop();
             for(auto it: adj[temp]){
                 indegrees[it]--;
                 if(indegrees[it] == 0){

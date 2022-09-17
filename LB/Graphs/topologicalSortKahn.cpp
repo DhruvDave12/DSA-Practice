@@ -49,14 +49,14 @@ int main()
     cin.tie(NULL);
     
     Graph gh;
-    gh.addEdgeDirected(5,0);
-    gh.addEdgeDirected(4,0);
-    gh.addEdgeDirected(5,2);
-    gh.addEdgeDirected(4,1);
-    gh.addEdgeDirected(2,3);
-    gh.addEdgeDirected(3,1);
+    gh.addEdgeDirected(1,0);
+    gh.addEdgeDirected(2,0);
+    gh.addEdgeDirected(3,0);
+    // gh.addEdgeDirected(4,1);
+    // gh.addEdgeDirected(2,3);
+    // gh.addEdgeDirected(3,1);
 
-    vector<int> ans = topologicalSortKahn(gh.adj, 5);
+    vector<int> ans = topologicalSortKahn(gh.adj, 4);
 
     for(int i=0; i<ans.size(); i++){
         cout<<ans[i]<<" ";
