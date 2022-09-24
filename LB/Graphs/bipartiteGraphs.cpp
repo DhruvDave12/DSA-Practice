@@ -52,34 +52,44 @@ class Sol {
 
         return true;
     }
+};
 
-    bool isBipartiteDFSUtil(map<int,vector<int>> &adj, int sv, vector<int> &color, vector<bool> &visited, int par){
-        visited[sv] = true;
-        if(par != -1 && color[par] == 1){
-            color[sv] = 0;
+class SolutionLeet {
+public:
+    
+    bool util(vector<vector<int>> &graph, map<int,char> &color, int sv, map<int,bool> &vis, int par){
+        vis[sv] = true;
+        if(par != -1 && color[par] == 'R'){
+            color[sv] = 'G';
+        } else if(par != -1 && color[par] == 'G'){
+            color[sv] = 'R';
         }
-        else if(par != -1 && color[par] == 0){
-            color[sv] = 1;
-        }
-
-        for(auto it: adj[sv]){
-            if(!visited[it]){
-                isBipartiteDFSUtil(adj,it,color,visited,sv);
+        
+        for(auto it: graph[sv]){
+            if(!vis[it]){
+                if(!util(graph,color,it,vis,sv)) return false;
             }
-            else if(color[sv] == color[it]){
-                return false;
-            }
+            else if(color[sv] == color[it]) return false;
         }
-
+        
         return true;
     }
-
-    bool isBipartiteDFS(map<int, vector<int>> &adj, int sv){
-        vector<bool> visited(adj.size(), false);
-        vector<int> color(adj.size(), -1);
-        color[sv] = 0;
-        bool ans = isBipartiteDFSUtil(adj,sv,color,visited,-1);
-        return ans;
+    
+    // graph coloring problem try to color the whole graph using only two colors
+    bool isBipartite(vector<vector<int>>& graph) {
+        map<int,bool> vis;
+        map<int,char> color;
+        int N = graph.size();
+        for(int i=0; i<N; i++){
+            if(!vis[i]){
+                color.clear();
+                color[i] = 'R';
+                bool ans = util(graph,color,i,vis,-1);
+                if(!ans) return false;
+            }
+        }
+        
+        return true;
     }
 };
 
@@ -95,17 +105,17 @@ int main()
     // gh.addEdge(1,3);
     
     Sol s;
-    // if(s.isBipartiteBFS(gh.adj, 1)){
-    //     cout<<"GRAPH IS BIPARTITE BFS"<<"\n";
-    // } else {
-    //     cout<<"GRAPH IS NOT BIPARTITE BFS"<<"\n";
-    // }
-
-    if(s.isBipartiteDFS(gh.adj, 1)){
-        cout<<"GRAPH IS BIPARTITE DFS"<<"\n";
+    if(s.isBipartiteBFS(gh.adj, 1)){
+        cout<<"GRAPH IS BIPARTITE BFS"<<"\n";
     } else {
-        cout<<"GRAPH IS NOT BIPARTITE DFS"<<"\n";
+        cout<<"GRAPH IS NOT BIPARTITE BFS"<<"\n";
     }
+
+    // if(s.isBipartiteDFS(gh.adj, 1)){
+    //     cout<<"GRAPH IS BIPARTITE DFS"<<"\n";
+    // } else {
+    //     cout<<"GRAPH IS NOT BIPARTITE DFS"<<"\n";
+    // }
 
     return 0;
 }
