@@ -3,12 +3,13 @@ using namespace std;
 
 class Solution {
 public:
-    void dfs(vector<vector<int>> &graph, vector<int> &temp, vector<vector<int>> &ans, int curr, map<int,bool> &vis){
-        vis[curr] = true;
+    
+    void dfs(vector<vector<int>> &graph, vector<int> &temp, vector<vector<int>> &ans, int curr, map<int,bool> &xyz){
+        xyz[curr] = true;
         temp.push_back(curr);
         for(auto it: graph[curr]){
-            if(!vis[it]){
-                dfs(graph,temp,ans,it,vis);
+            if(!xyz[it]){
+                dfs(graph,temp,ans,it,xyz);
                 temp.pop_back();
             }
         }
