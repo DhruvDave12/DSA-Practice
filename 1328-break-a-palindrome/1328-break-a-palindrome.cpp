@@ -15,7 +15,6 @@ public:
         int n = palindrome.size();
         
         if(n <= 1) return "";
-        // smallest only when we do changes on the starting ones, i.e., even
         
         for(int i=0; i<n; i++){
             if(n%2 != 0 && i == n/2) continue;
