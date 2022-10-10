@@ -12,6 +12,28 @@
 class Solution {
 public:
     
+    void fillVectorIterative(TreeNode* root, vector<int> &vec){
+        if(!root) return;
+        stack<TreeNode*> st;
+        // st.push(root);
+        TreeNode* curr = root;
+        
+        while(curr != NULL || !st.empty()){
+            // TreeNode* curr = st.top();
+            while(curr){
+                st.push(curr);
+                curr=curr->left;
+            }
+            
+            curr = st.top();
+            vec.push_back(st.top()->val);
+            st.pop();
+            
+            curr = curr->right;
+        }
+    }
+    
+    // instead of doing this recursively we can use stack here as shown in above 
     void fillVector(TreeNode* root, vector<int> &vec){
         if(!root) return;
         
@@ -36,7 +58,7 @@ public:
         vector<int> vec;
         
         TreeNode* temp = root;
-        fillVector(temp,vec);
+        fillVectorIterative(temp,vec);
         
         TreeNode* ans = createRequirements(vec);
         
