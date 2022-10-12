@@ -40,8 +40,30 @@ public:
         return root;
     }
     TreeNode* constructMaximumBinaryTree(vector<int>& nums) {
-        TreeNode* root = createTree(nums);
+        // TreeNode* root = createTree(nums);
+        stack<TreeNode*> st;
         
+        for(auto it: nums){
+            TreeNode* curr = new TreeNode(it);
+            while(!st.empty() && st.top()->val < it){
+                curr->left = st.top();
+                st.pop();
+            }
+            
+            // now we have the element larger than current on st.top()
+            if(!st.empty()){
+                st.top()->right = curr;
+            }
+            
+            st.push(curr);
+        }
+        
+        TreeNode* root;
+        
+        while(!st.empty()){
+            root = st.top();
+            st.pop();
+        }
         return root;
     }
 };
