@@ -2,21 +2,22 @@ class Solution {
 public:
     int minimumDeletions(string s) 
     {
-        int as = 0, bs = 0;
-        for( const char& c : s )
-            if( c == 'a' )
-                ++as;
+        // no a's before b's
         
-        int del = as;
-        for( const char& c : s )
-        {
-            if( c == 'b' )
-                ++bs;
-            else
-                --as;
-            
-            del = min( del, (as+bs) );
+        stack<char> st;
+        int N = s.length();
+        
+        int ans = 0;
+        for(int i=N-1;i>=0;i--){
+            char ch = s[i];
+            if(!st.empty() && st.top() < ch){
+                ans++;
+                st.pop();
+            } else {
+                st.push(s[i]);
+            }
         }
-        return del;
+        
+        return ans;
     }
 };
